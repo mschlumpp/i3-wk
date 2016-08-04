@@ -1,0 +1,96 @@
+[root]
+name = "i3-wk"
+version = "0.1.0"
+dependencies = [
+ "serde 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_json 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_macros 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "aster"
+version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "itoa"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "num-traits"
+version = "0.1.34"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "quasi"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "quasi_codegen"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "aster 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "quasi_macros"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "quasi_codegen 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "serde"
+version = "0.7.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "serde_codegen"
+version = "0.7.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "aster 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quasi 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quasi_macros 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_codegen_internals 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "serde_codegen_internals"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "serde_json"
+version = "0.7.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "itoa 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "num-traits 0.1.34 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "serde_macros"
+version = "0.7.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "serde_codegen 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[metadata]
+"checksum aster 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)" = "3c2e21e476ef6522e1762461ddbd1eba4d049c9a86619ccd03226b09f3d0741e"
+"checksum itoa 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "ae3088ea4baeceb0284ee9eea42f591226e6beaecf65373e41b38d95a1b8e7a1"
+"checksum num-traits 0.1.34 (registry+https://github.com/rust-lang/crates.io-index)" = "95e58eac34596aac30ab134c8a8da9aa2dc99caa4b4b4838e6fc6e298016278f"
+"checksum quasi 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)" = "314e56e9e59af71a5b1f09fab15e8e66ab2ccb786688f8d2e04d98b8d7cbc161"
+"checksum quasi_codegen 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)" = "1a3856abd5ec12f873eeac0837cce65ac33814ed4acba287a9e806620763d4b7"
+"checksum quasi_macros 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)" = "9b530b7ff57b6a38e4d53909c64657f40e0eef6a8fea1f0943d76160c277c9c5"
+"checksum serde 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)" = "1b0e0732aa8ec4267f61815a396a942ba3525062e3bd5520aa8419927cfc0a92"
+"checksum serde_codegen 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)" = "973836af70870533bc6a332488ded6aef80a5ff507b663e8b4e1ef44580ea8fd"
+"checksum serde_codegen_internals 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "eed6f11ba7400225025b44c77b4eca1655958aac6c586c5ec9c76fd5597ef849"
+"checksum serde_json 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)" = "b22e8a0554f31cb0f501e027de07b253553b308124f61c57598b9678dba35c0b"
+"checksum serde_macros 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)" = "10aa279b5b061a3e827639cc15e563be096b7323c9c811e10a4b18ba4607eaf8"
