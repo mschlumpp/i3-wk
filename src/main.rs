@@ -1,11 +1,6 @@
-#![feature(custom_derive, plugin)]
-#![plugin(serde_macros)]
-
-extern crate serde;
-extern crate serde_json;
-
-use std::process::Command;
+use serde::{Deserialize, Serialize};
 use std::error::Error;
+use std::process::Command;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 struct Rect {
@@ -35,28 +30,28 @@ struct Workspace {
     urgent: bool,
 }
 
-fn read_outputs() -> Result<Vec<Output>, Box<Error>> {
-    let i3_out = try!(Command::new("i3-msg")
-                          .arg("-t")
-                          .arg("get_outputs")
-                          .output());
+fn read_outputs() -> Result<Vec<Output>, Box<dyn Error>> {
+    let i3_out = Command::new("i3-msg")
+        .arg("-t")
+        .arg("get_outputs")
+        .output()?;
 
-    serde_json::de::from_slice(&i3_out.stdout).map_err(|e| From::from(e))
+    serde_json::de::from_slice(&i3_out.stdout).map_err(From::from)
 }
 
-fn read_workspaces() -> Result<Vec<Workspace>, Box<Error>> {
-    let i3_out = try!(Command::new("i3-msg")
-                          .arg("-t")
-                          .arg("get_workspaces")
-                          .output());
-    serde_json::de::from_slice(&i3_out.stdout).map_err(|e| From::from(e))
+fn read_workspaces() -> Result<Vec<Workspace>, Box<dyn Error>> {
+    let i3_out = Command::new("i3-msg")
+        .arg("-t")
+        .arg("get_workspaces")
+        .output()?;
+    serde_json::de::from_slice(&i3_out.stdout).map_err(From::from)
 }
 
-fn to_workspace(wk: &str) -> Result<(), Box<Error>> {
+fn to_workspace(wk: &str) -> Result<(), Box<dyn Error>> {
     Command::new("i3-msg")
         .arg(format!("workspace --no-auto-back-and-forth {}", wk))
         .status()
-        .map_err(|e| From::from(e))
+        .map_err(From::from)
         .and_then(|status| {
             if status.success() {
                 Ok(())
@@ -66,11 +61,11 @@ fn to_workspace(wk: &str) -> Result<(), Box<Error>> {
         })
 }
 
-fn move_to_output(output: &str) -> Result<(), Box<Error>> {
+fn move_to_output(output: &str) -> Result<(), Box<dyn Error>> {
     Command::new("i3-msg")
         .arg(format!("move workspace to output {}", output))
         .status()
-        .map_err(|e| From::from(e))
+        .map_err(From::from)
         .and_then(|status| {
             if status.success() {
                 Ok(())
@@ -92,7 +87,8 @@ fn main() {
 
     let i3_outputs = read_outputs().expect("Cannot read outputs");
     let i3_workspaces = read_workspaces().expect("Cannot read workspaces");
-    let focused_workspace = i3_workspaces.iter()
+    let focused_workspace = i3_workspaces
+        .iter()
         .find(|x| x.focused)
         .expect("There must be at least one active output");
     let active_output = &focused_workspace.output;
@@ -111,9 +107,10 @@ fn main() {
         if target_workspace.visible {
             println!("Workspace is visible -> Exchange");
 
-            let other_output = i3_outputs.iter().find(|o| {
-                Some(&target_workspace.name) == o.current_workspace.as_ref()
-            }).expect("Cannot find output of target workspace");
+            let other_output = i3_outputs
+                .iter()
+                .find(|o| Some(&target_workspace.name) == o.current_workspace.as_ref())
+                .expect("Cannot find output of target workspace");
 
             move_to_output(&other_output.name).expect("Cannot swap workspaces");
             to_workspace(&target_workspace.name).expect("Cannot focus target workspace");
